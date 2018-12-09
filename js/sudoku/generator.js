@@ -2,7 +2,7 @@ class SudokuGenerator {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.bugx = 0;
+    this.bugx = 99;
     this.bugy = 0;
     this.attempt = 0;
     this.bugcont = 0;
@@ -68,15 +68,18 @@ class SudokuGenerator {
     }
 
     if (!haveNumbers) {
-      this.attempt++;
-
-      if (this.bugx === this.x && this.bugy === this.y) {
-        this.bugcont++;
+      if (this.bugx <= this.x && this.bugy === this.y) {
+        this.bugcont += 0.2;
 
         for (let i = 0; i < this.bugcont; i++) {
           this.returnCeil();
         }
       } else {
+        if (this.bugx > this.x) {
+          this.bugcont = 0;
+        }
+
+        this.attempt++;
         if (this.attempt > 20) {
           this.bugx = this.x;
           this.bugy = this.y;
